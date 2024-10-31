@@ -19,7 +19,6 @@ from langchain.docstore.document import Document
 def load_api_key():
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
-    print("Loaded API Key:", api_key)  # Debugging line
     return api_key
 
 # Function to extract text from a PDF file

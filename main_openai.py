@@ -18,7 +18,9 @@ from langchain.docstore.document import Document
 # Function to load environment variables and return OpenAI API key
 def load_api_key():
     load_dotenv()
-    return os.getenv("OPENAI_API_KEY")
+    api_key = os.getenv("OPENAI_API_KEY")
+    print("Loaded API Key:", api_key)  # Debugging line
+    return api_key
 
 # Function to extract text from a PDF file
 def extract_text_from_pdf(pdf):

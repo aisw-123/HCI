@@ -25,18 +25,24 @@ def extract_text_from_pdf(pdf):
 # Function to summarize text from the PDF in batches
 def summarize_pdf(text_generator, api_key):
     llm = OpenAI(api_key=api_key)
-    text_splitter = CharacterTextSplitter(chunk_size=2000, chunk_overlap=100)  # Increase chunk size
+    text_splitter = CharacterTextSplitter(chunk_size=2000, chunk_overlap=100)
     chain = load_summarize_chain(llm, chain_type="map_reduce")
 
-    # Summarize in chunks
-    summaries = []
+    # Step 1: Page-level summaries
+    page_summaries = []
     for text in text_generator:
         texts = text_splitter.split_text(text)
         docs = [Document(page_content=t) for t in texts]
-        summary = chain.run(docs)
-        summaries.append(summary)
-    
-    return "\n".join(summaries)
+        page_summary = chain.run(docs)
+        page_summaries.append(page_summary)
+
+    # Step 2: Combine page summaries and create a final cohesive summary
+    combined_summary_text = " ".join(page_summaries)
+    combined_texts = text_splitter.split_text(combined_summary_text)
+    combined_docs = [Document(page_content=t) for t in combined_texts]
+    final_summary = chain.run(combined_docs)
+
+    return final_summary
 
 # Create embeddings with optimized chunk sizes
 def create_knowledge_base(text_generator, api_key):

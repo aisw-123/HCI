@@ -31,7 +31,7 @@ def extract_text_from_pdf(pdf):
 
 # Function to summarize the extracted text from the PDF
 def summarize_pdf(text, api_key):
-    llm = OpenAI(openai_api_key=api_key)
+    llm = OpenAI(api_key=api_key)
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     texts = text_splitter.split_text(text)
     
@@ -53,7 +53,7 @@ def create_knowledge_base(text, api_key):
     )
     chunks = text_splitter.split_text(text)
     
-    embeddings = OpenAIEmbeddings(openai_api_key=api_key)
+    embeddings = OpenAIEmbeddings(api_key=api_key)
     knowledge_base = FAISS.from_texts(chunks, embeddings)
     
     return knowledge_base
@@ -61,7 +61,7 @@ def create_knowledge_base(text, api_key):
 # Function to handle LLM call and generate a response for the given question
 def query_llm(knowledge_base, user_question, api_key):
     docs = knowledge_base.similarity_search(user_question)
-    llm = OpenAI(openai_api_key=api_key)
+    llm = OpenAI(api_key=api_key)
     chain = load_qa_chain(llm, chain_type="stuff")
     
     with get_openai_callback() as cb:

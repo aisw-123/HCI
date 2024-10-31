@@ -1,7 +1,25 @@
+# Environment variable management
 python-dotenv
+
+# Web app framework
 streamlit
+
+# PDF processing
 PyPDF2
+
+# Core libraries for language processing with LangChain
 langchain
-langchain_openai
 langchain-community
+langchain-openai
+
+# OpenAI API client
 openai
+
+# Vector storage and similarity search
+faiss-cpu
+
+# Additional NLP libraries that may be useful
+tiktoken  # Tokenizer for OpenAI, sometimes required for LangChain
+
+# Any other dependencies specific to LangChain or OpenAI's Embedding Models
+# (If langchain or OpenAI has specific dependency requirements, they will pull them automatically)

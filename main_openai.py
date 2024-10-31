@@ -101,8 +101,7 @@ def set_chat_styles():
 
 # Main function for handling the app workflow
 def main():
-    api_key = "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"
-
+    api_key = load_api_key() 
     st.header("Ask About Your PDF 🤷‍♀️💬")
 
     # Set chat bubble styles
